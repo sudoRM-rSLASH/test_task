@@ -13,11 +13,11 @@ from accounts.utils import Parser, DataValidator
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def create_new_users(request):
-    with open("./accounts/downloads/csv_file.csv", "wb") as csv:
+    with open("./accounts/csv_file.csv", "wb") as csv:
         csv.write(request.FILES.get("csv_file").read())
     parser = Parser(
         xml_file=request.FILES.get("xml_file"),
-        csv_file=open("./accounts/downloads/csv_file.csv"),
+        csv_file=open("./accounts/csv_file.csv"),
     )
     users_list = DataValidator(
         parser.parse_csv(), parser.parse_xml()

@@ -22,7 +22,7 @@ class Parser:
             )
         self.csv_file.close()
         try:
-            os.remove("./accounts/downloads/csv_file.csv")
+            os.remove("./accounts/csv_file.csv")
         except:
             pass
         return user_data_1
