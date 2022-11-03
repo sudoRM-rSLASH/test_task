@@ -12,7 +12,7 @@
 
 `python manage.py migrate`
 
-`python manage.py createsuperuser`
+`python manage.py createsuperuser` # and create administrator
 
 ### Start
 
@@ -20,7 +20,7 @@
 
 ### Notes
 
-For create new users or see all created users login as admin on:
+For create new users or see all created users login as administrator on:
 http://127.0.0.1:8000/signin/
 
 You can login as created user by username and password.
