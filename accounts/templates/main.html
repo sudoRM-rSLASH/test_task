@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Main page{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <img class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     src="https://www.randomlists.com/img/people/john_bon_jovi.webp" alt="">
+
+                <h2 class="fw-normal">{{ request.user.username }}</h2>
+                <p><a href="{% url 'signout' %}">
+                    <button class="btn btn-danger">Sign out</button>
+                </a></p>
+            </div>
+            <main class="col-md-9 ms-sm-auto px-md-4">
+                {% if request.user.is_superuser %}
+                    <h2>Users</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Full name</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Avatar</th>
+                                <th scope="col">Date joined</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.get_full_name }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td><img height="50px" src="{{ user.avatar }}" alt=""></td>
+                                    <td>{{ user.date_joined }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>You not have access</p>
+                {% endif %}
+            </main>
+
+            <div class="col-md-12 col-sm-12">
+                {% if request.user.is_superuser %}
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4 col-xs-12">
+                            <form method="post" enctype="multipart/form-data" action="/upload/users/">
+                                <label for="floatingInput">CSV</label>
+                                <label for="file">Choose file to upload</label>
+                                <input type="file" class="form-control" name="csv_file" id="floatingInput"
+                                       placeholder="CSV">
+                                <label for="floatingInput">XML</label>
+                                <label for="file">Choose file to upload</label>
+                                <input type="file" class="form-control" name="xml_file" id="floatingInput"
+                                       placeholder="XML">
+
+                                <button type="submit">Add users</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
